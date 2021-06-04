@@ -2,6 +2,20 @@ pipeline {
     agent any
     stages {
         stage('ビルド') {
+            input {
+                message "Begin?"
+                parameters {
+                    string(name: 'commitID', description: 'Commit ID', defaultValue: "${env.GIT_COMMIT}")
+                    string(name: 'buildNum', description: 'Build Number', defaultValue: "${env.BUILD_NUMBER}")
+                }
+            }
+            steps {
+                sh "echo commitId ${commitID}"
+                sh "echo buildNum ${buildNum}"
+                sh "env"
+            }
+        }
+        stage('ビルド') {
             steps {
                 echo 'Start build'
             }
